@@ -35,8 +35,8 @@ export default function ContactPanel({
   const { userData } = useContext(AppContext);
   const [isOpen, setIsOpen] = useState(false);
   const [isArrowUp, setIsArrowUp] = useState(false);
-  const [addedContacts, setAddedContacts] = useState([]);
   const [currentListContacts, setCurrentListContacts] = useState([]);
+  const [updatingContact, setUpdatingContact] = useState(null);
   const navigate = useNavigate();
 
   const toggleCollapsePlus = () => {
@@ -51,12 +51,7 @@ export default function ContactPanel({
     if (isSearching) {
       return searchResults || [];
     } else if (currentView === "My Contacts") {
-      const mappedAddedContacts = addedContacts
-        .map((contactHandle) =>
-          allContacts.find((contact) => contact?.handle === contactHandle)
-        )
-        .filter(Boolean);
-      return mappedAddedContacts;
+      return allContacts || [];
     } else {
       const currentList = contactLists.find(
         (list) => list?.title === currentView
@@ -96,45 +91,44 @@ export default function ContactPanel({
   };
 
   const isAddedContact = (contactHandle) => {
-    return addedContacts.includes(contactHandle);
+    return allContacts.some((c) => c?.handle === contactHandle);
   };
 
-  const handleToggleContact = (contactHandle) => {
-    if (currentView === "My Contacts") {
-      let updatedContacts = [];
-      if (isAddedContact(contactHandle)) {
-        updatedContacts = addedContacts.filter((c) => c !== contactHandle);
-        onRemoveContact(contactHandle);
-        themeChecker(`${contactHandle} removed from Contacts!`);
-      } else {
-        updatedContacts = [...addedContacts, contactHandle];
-        onAddContact(contactHandle);
-        themeChecker(`${contactHandle} added to Contacts!`);
-      }
-      setAddedContacts(updatedContacts);
-      localStorage.setItem("addedContacts", JSON.stringify(updatedContacts));
-    } else {
-      const currentList = contactLists.find(
-        (list) => list.title === currentView
-      );
-      if (currentList) {
-        const updatedListContacts = { ...(currentList.contacts || {}) };
-        if (updatedListContacts[contactHandle]) {
-          delete updatedListContacts[contactHandle];
+  const handleToggleContact = async (contactHandle) => {
+    if (updatingContact) return;
+
+    setUpdatingContact(contactHandle);
+
+    try {
+      if (currentView === "My Contacts") {
+        const isRemoving = isAddedContact(contactHandle);
+
+        if (isRemoving) {
+          await onRemoveContact(contactHandle);
+          themeChecker(`${contactHandle} removed from Contacts!`);
         } else {
-          updatedListContacts[contactHandle] = true;
+          await onAddContact(contactHandle);
+          themeChecker(`${contactHandle} added to Contacts!`);
         }
-        updateContact(currentList.key, updatedListContacts);
+      } else {
+        const currentList = contactLists.find(
+          (list) => list.title === currentView
+        );
+        if (currentList) {
+          const updatedListContacts = { ...(currentList.contacts || {}) };
+          if (updatedListContacts[contactHandle]) {
+            delete updatedListContacts[contactHandle];
+          } else {
+            updatedListContacts[contactHandle] = true;
+          }
+          await updateContact(currentList.key, updatedListContacts);
+        }
       }
+    } catch (error) {
+    } finally {
+      setUpdatingContact(null);
     }
   };
-
-  useEffect(() => {
-    const storedContacts = localStorage.getItem("addedContacts");
-    if (storedContacts) {
-      setAddedContacts(JSON.parse(storedContacts));
-    }
-  }, []);
 
   useEffect(() => {
     if (currentView !== "My Contacts") {
@@ -242,6 +236,7 @@ export default function ContactPanel({
                                       onChange={() =>
                                         handleToggleContact(contact.handle)
                                       }
+                                      disabled={updatingContact === contact.handle}
                                     />
                                     {isAddedContact(contact.handle) ? (
                                       <Minus />
@@ -322,8 +317,6 @@ ContactPanel.propTypes = {
   setClearSearch: PropTypes.func,
   searchQuery: PropTypes.string,
   searchResults: PropTypes.arrayOf(PropTypes.object),
-  isChecked: PropTypes.bool,
-  setIsChecked: PropTypes.func,
   onAddContact: PropTypes.func,
   onRemoveContact: PropTypes.func,
 };

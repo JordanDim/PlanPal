@@ -10,13 +10,16 @@ export default function CreateNewContactList() {
   const { userData } = useContext(AppContext);
   const { handleSubmit, register, reset } = useForm();
 
-  const onSubmit = (data) => {
+  const onSubmit = async (data) => {
     const { title } = data;
     if (title !== "" && title.length <= MAX_TITLE_LENGTH) {
-      createContactList(title, userData?.handle);
-      themeChecker("Contact list created!");
+      try {
+        await createContactList(title, userData?.handle);
+        themeChecker("Contact list created!");
+        reset();
+      } catch (error) {
+      }
     }
-    reset();
   };
 
   return (

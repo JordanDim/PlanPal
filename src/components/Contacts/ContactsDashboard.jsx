@@ -17,38 +17,25 @@ export default function ContactsDashboard() {
   const [clearSearch, setClearSearch] = useState(false);
   const [isSearching, setIsSearching] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
-  const [isChecked, setIsChecked] = useState(false);
   const [contactLists, setContactLists] = useState(null);
   const [allContacts, setAllContacts] = useState([]);
   const [allUsers, setAllUsers] = useState([]);
   const location = useLocation();
 
-  const handleAddContact = (contactHandle) => {
-    addContact(userData.handle, contactHandle)
-      .then(() => {
-        const foundUser = allUsers.find(
-          (user) => user.handle === contactHandle
-        );
-
-        if (foundUser) {
-          setAllContacts((prevContacts) => [...prevContacts, foundUser]);
-        }
-      })
-      .catch((error) => {
-        console.error("Error adding contact:", error);
-      });
+  const handleAddContact = async (contactHandle) => {
+    await addContact(userData.handle, contactHandle);
+    const foundUser = allUsers.find(
+      (user) => user.handle === contactHandle
+    );
+    if (foundUser) {
+      setAllContacts((prevContacts) => [...prevContacts, foundUser]);
+    }
   };
 
-  const handleRemoveContact = (contactHandle) => {
-    removeContact(userData.handle, contactHandle)
-      .then(() => {
-        setAllContacts((prevContacts) =>
-          prevContacts.filter((contact) => contact.handle !== contactHandle)
-        );
-      })
-      .catch((error) => {
-        console.error("Error removing contact:", error);
-      });
+  const handleRemoveContact = async (contactHandle) => {
+    await removeContact(userData.handle, contactHandle);
+    setAllContacts((prevContacts) => prevContacts.filter((contact) => contact.handle !== contactHandle)
+    );
   };
 
   useEffect(() => {
@@ -117,8 +104,6 @@ export default function ContactsDashboard() {
         setClearSearch={setClearSearch}
         searchQuery={searchQuery}
         searchResults={searchResults}
-        isChecked={isChecked}
-        setIsChecked={setIsChecked}
         allContacts={allContacts}
         contactLists={contactLists}
         onAddContact={handleAddContact}

@@ -1,4 +1,5 @@
 import { UploadClient } from "@uploadcare/upload-client";
+import { restrictDemoUser } from "../common/helpers/demoUserRestriction";
 
 const uploadClient = new UploadClient({
   publicKey: import.meta.env.VITE_UPLOADCARE_PUBLIC_KEY,
@@ -9,6 +10,14 @@ const getCustomCdnUrl = (uuid, filename) => {
 };
 
 export const uploadAvatar = async (userId, file) => {
+  try {
+    restrictDemoUser("upload avatars");
+  } catch (error) {
+    if (error?.isDemoUserRestriction) {
+      throw error;
+    }
+  }
+
   try {
     const result = await uploadClient.uploadFile(file, {
       fileName: `avatar${userId}`,
@@ -22,6 +31,14 @@ export const uploadAvatar = async (userId, file) => {
 };
 
 export const uploadCover = async (eventId, file) => {
+  try {
+    restrictDemoUser("upload event covers");
+  } catch (error) {
+    if (error?.isDemoUserRestriction) {
+      throw error;
+    }
+  }
+
   try {
     const result = await uploadClient.uploadFile(file, {
       fileName: `cover${eventId}`,

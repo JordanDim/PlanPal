@@ -15,31 +15,46 @@ export default function PanelLists({ setCurrentView, list, allContacts }) {
   const { userData } = useContext(AppContext);
   const navigate = useNavigate();
   const [contacts, setContacts] = useState({});
+  const [updatingContact, setUpdatingContact] = useState(null);
 
   useEffect(() => {
     setContacts(list?.contacts || {});
   }, [list?.contacts]);
 
-  const handleDelete = (id) => {
-    themeChecker("Contact list deleted!");
-    deleteContactList(id, userData?.handle);
-    setCurrentView("My Contacts");
+  const handleDelete = async (id) => {
+    try {
+      await deleteContactList(id, userData?.handle);
+      themeChecker("Contact list deleted!");
+      setCurrentView("My Contacts");
+    } catch (error) {
+    }
   };
 
-  const handleUpdateList = (listKey, contact) => {
+  const handleUpdateList = async (listKey, contact) => {
+    if (updatingContact) return;
+
     const user = contact.handle.toLowerCase();
+    const isRemoving = !!contacts[user];
     const updatedContacts = { ...contacts };
 
-    if (updatedContacts[user]) {
+    if (isRemoving) {
       delete updatedContacts[user];
-      themeChecker(`${contact.handle} removed from ${list.title}!`);
     } else {
       updatedContacts[user] = true;
-      themeChecker(`${contact.handle} added to ${list.title}!`);
     }
 
-    setContacts(updatedContacts);
-    updateContact(listKey, updatedContacts);
+    setUpdatingContact(contact.handle);
+
+    try {
+      await updateContact(listKey, updatedContacts);
+      setContacts(updatedContacts);
+      themeChecker(
+        `${contact.handle} ${isRemoving ? "removed from" : "added to"} ${list.title}!`
+      );
+    } catch (error) {
+    } finally {
+      setUpdatingContact(null);
+    }
   };
 
   return (
@@ -77,6 +92,7 @@ export default function PanelLists({ setCurrentView, list, allContacts }) {
                           className="checkbox checkbox-md"
                           checked={isContactInList}
                           onChange={() => handleUpdateList(list.key, contact)}
+                          disabled={updatingContact === contact.handle}
                         />
                         <span className="label-text ml-2">
                           {contact.handle}

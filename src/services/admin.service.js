@@ -8,6 +8,7 @@ import {
     update,
   } from "firebase/database";
   import { db } from "../config/firebase-config";
+  import { restrictDemoUser } from "../common/helpers/demoUserRestriction";
   
   export const searchUsers = async (searchTerm) => {
     const snapshot = await get(ref(db, "users"));
@@ -33,11 +34,21 @@ import {
 
 
 export const blockUser = async (handle) => {
+    try {
+      restrictDemoUser("block users");
+    } catch (error) {
+      if (error?.isDemoUserRestriction) throw error;
+    }
     const userRef = ref(db, `users/${handle}`);
     return update(userRef, { isBlocked: true });
 };
 
 export const unblockUser = async (handle) => {
+    try {
+      restrictDemoUser("unblock users");
+    } catch (error) {
+      if (error?.isDemoUserRestriction) throw error;
+    }
     const userRef = ref(db, `users/${handle}`);
     return update(userRef, { isBlocked: false });
 };

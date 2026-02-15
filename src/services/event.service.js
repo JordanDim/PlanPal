@@ -1,8 +1,10 @@
 import { ref, push, getDatabase, get, update } from "firebase/database";
 import { db } from "../config/firebase-config";
 import { themeChecker } from "../common/helpers/toast";
+import { restrictDemoUser } from "../common/helpers/demoUserRestriction";
 
 export const addEvent = async (event) => {
+  restrictDemoUser("create events");
   const newEvent = {
     ...event,
     createdOn: Date.now(),
@@ -37,6 +39,12 @@ export const getAllEvents = async (userHandle) => {
 
 
 export const joinEvent = async (handle, eventId) => {
+  try {
+    restrictDemoUser("join events");
+  } catch (error) {
+    if (error?.isDemoUserRestriction) return null;
+  }
+
   const eventRef = ref(db, `events/${eventId}`);
 
   try {
@@ -70,6 +78,12 @@ export const joinEvent = async (handle, eventId) => {
 };
 
 export const leaveEvent = async (handle, eventTitle) => {
+  try {
+    restrictDemoUser("leave events");
+  } catch (error) {
+    if (error?.isDemoUserRestriction) return null;
+  }
+
   const eventRef = ref(db, `events/`);
   let eventId;
 
@@ -228,6 +242,7 @@ export const getEventById = async (eventId) => {
 
 export const updateEvent = async (eventId, eventData) => {
   try {
+    restrictDemoUser("update events");
     const eventRef = ref(db, `events/${eventId}`);
     const eventSnapshot = await get(eventRef);
 
@@ -251,12 +266,21 @@ export const updateEvent = async (eventId, eventData) => {
 
     await update(ref(db), updates);
   } catch (error) {
+    if (error?.isDemoUserRestriction) {
+      throw error;
+    }
     console.error("Error updating event:", error);
     throw error;
   }
 };
 
 export const deleteEvent = async (eventId) => {
+  try {
+    restrictDemoUser("delete events");
+  } catch (error) {
+    if (error?.isDemoUserRestriction) return false;
+  }
+
   const eventRef = ref(db, `events/${eventId}`);
 
   try {
@@ -318,6 +342,12 @@ export const inviteUser = async (
   invitingUserHandle,
   userToInviteHandle
 ) => {
+  try {
+    restrictDemoUser("invite users to events");
+  } catch (error) {
+    if (error?.isDemoUserRestriction) return false;
+  }
+
   const eventRef = ref(db, `events/${eventId}`);
 
   try {
@@ -349,6 +379,12 @@ export const inviteUser = async (
 };
 
 export const uninviteUser = async (eventId, userHandle) => {
+  try {
+    restrictDemoUser("uninvite users from events");
+  } catch (error) {
+    if (error?.isDemoUserRestriction) return false;
+  }
+
   const eventRef = ref(db, `events/${eventId}`);
 
   try {
@@ -379,6 +415,12 @@ export const getContactListById = async (listId) => {
 };
 
 export const inviteList = async (eventId, invitingUserHandle, listId) => {
+  try {
+    restrictDemoUser("invite contact lists to events");
+  } catch (error) {
+    if (error?.isDemoUserRestriction) return false;
+  }
+
   const eventRef = ref(db, `events/${eventId}`);
 
   try {

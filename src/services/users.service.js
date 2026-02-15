@@ -9,6 +9,7 @@ import {
   getDatabase,
 } from "firebase/database";
 import { db } from "../config/firebase-config";
+import { restrictDemoUser } from "../common/helpers/demoUserRestriction";
 
 export const getAllUsers = () => {
   return get(ref(db, "users"));
@@ -24,20 +25,26 @@ export const getUserData = (uid) => {
 
 export const createUserHandle = async (userData) => {
   try {
+    restrictDemoUser("create a new user account");
     const userHandle = userData.handle.toLowerCase();
     userData.handle = userHandle;
     await set(ref(db, `users/${userHandle}`), userData);
   } catch (e) {
+    if (e?.isDemoUserRestriction) return;
     console.error("Error adding document: ", e);
   }
 };
 
 export const updateUser = async (handle, userData) => {
   try {
+    restrictDemoUser("update user profile");
     const userHandle = handle.toLowerCase();
     const userRef = ref(db, `users/${userHandle}`);
     await update(userRef, userData);
   } catch (error) {
+    if (error?.isDemoUserRestriction) {
+      throw error;
+    }
     console.error("Error updating user:", error);
     throw error;
   }
