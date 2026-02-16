@@ -3,7 +3,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { AppContext } from "../context/AppContext";
 import { loginUser } from "../services/auth.service";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons"; // Import icons directly
+import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import { BASE } from "../common/constants";
 
 export default function Login() {
@@ -13,7 +13,7 @@ export default function Login() {
     password: "",
   });
   const [error, setError] = useState("");
-  const [showPassword, setShowPassword] = useState(false); // State to toggle password visibility
+  const [showPassword, setShowPassword] = useState(false); 
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -54,6 +54,15 @@ export default function Login() {
     <div className=" register-form flex flex-col gap-4 sm:flex-row justify-center items-center  mx-auto p-4 rounded-lg mt-8 mb-8 w-auto h-auto">
       <div className="w-full sm:w-1/2 p-10">
         <h1 className="text-3xl font-semibold mb-4">Login</h1>
+        <div className="alert alert-info mb-4">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" className="stroke-current shrink-0 w-6 h-6">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+          </svg>
+          <div>
+            <h3 className="font-bold">Demo User Credentials</h3>
+            <div className="text-xs">Email: demo@planpal.com | Password: Demo123!</div>
+          </div>
+        </div>
         <div className="space-y-2">
           <label htmlFor="email">Email </label>
           <div>

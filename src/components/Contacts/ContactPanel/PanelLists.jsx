@@ -57,6 +57,13 @@ export default function PanelLists({ setCurrentView, list, allContacts }) {
     }
   };
 
+  const handleCheckboxClick = (e, listKey, contact) => {
+    e.preventDefault();
+    e.stopPropagation();
+    handleUpdateList(listKey, contact);
+    return false;
+  };
+
   return (
     <ul className="mb-4 p-4 bg-transparent rounded-lg shadow-xl">
       <div className="flex items-center justify-between py-2">
@@ -86,18 +93,19 @@ export default function PanelLists({ setCurrentView, list, allContacts }) {
                     false;
                   return (
                     <li key={contact.handle}>
-                      <label className="label cursor-pointer w-full justify-start">
+                      <div
+                        className="w-full px-2 py-1 hover:bg-base-200 cursor-pointer"
+                        onMouseDown={(e) => handleCheckboxClick(e, list.key, contact)}
+                      >
                         <input
                           type="checkbox"
                           className="checkbox checkbox-md"
                           checked={isContactInList}
-                          onChange={() => handleUpdateList(list.key, contact)}
+                          readOnly
                           disabled={updatingContact === contact.handle}
                         />
-                        <span className="label-text ml-2">
-                          {contact.handle}
-                        </span>
-                      </label>
+                        <span className="ml-2">{contact.handle}</span>
+                      </div>
                     </li>
                   );
                 })
