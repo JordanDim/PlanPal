@@ -1,36 +1,50 @@
-# PlanPal - Event Calendar 
+# PlanPal - Event Calendar
 
 PlanPal is your go-to solution for flexible event scheduling, designed to meet the needs of individuals and teams. With features like event series creation, reminders, and contacts lists, organizing your events has never been easier!
+
+## 📝 Project Overview
+
+This is a **clone of the Plan project** with several enhancements and optimizations:
+
+- **Storage Migration**: Event posters and user avatars are now hosted on Uploadcare because Firebase Storage has become part of the project's pricing plan.
+- **Enhanced UI/UX**: Improved CSS styling and layout responsiveness for a better user experience across devices.
+- **Demo Account**: A demo account is available for users to explore the core functionality without registration.
+
+**Demo Account Credentials:**
+- Email: `demo@planpal.com`
+- Password: `Demo123!`
+
+---
 
 ## Why PlanPal?
 
 
-  - Efficient event scheduling for both individuals and teams.
-  - Feature-rich calendar with options for event series, reminders, and contacts.
-  - Seamless integration with Firebase for secure authentication and real-time data storage.
-  
+ - Efficient event scheduling for both individuals and teams.
+ - Feature-rich calendar with options for event series, reminders, and contacts.
+ - Seamless integration with Firebase for secure authentication and real-time data storage.
+
 ## Features
 
 ### Authentication:
-  - Handled securely by Firebase, ensuring user data safety.
+- Handled securely by Firebase, ensuring user data safety.
 
 ### Events:
-  - Create single or series events with customizable details like title, date, time, and location.
-  - Invite participants and manage event privacy settings.
-  - Add descriptions, tags, and attach a map to the event location.
+- Create single or series events with customizable details like title, date, time, and location.
+- Invite participants and manage event privacy settings.
+- Add descriptions, tags, and attach a map to the event location.
 
 ### Contacts Lists:
-  - Organize your contacts into custom lists for easy event invitations.
+- Organize your contacts into custom lists for easy event invitations.
 
 ### Calendar Views:
-  - Choose from various calendar views including day, week, month, and work week
+- Choose from various calendar views including day, week, month, and work week
 
 ### Personalization:
-  - Edit personal information including name, phone, address, and avatar picture.
-  - Search for other users and invite them to events.
+- Edit personal information including name, phone, address, and avatar picture.
+- Search for other users and invite them to events.
 
 ### Administration:
-  - Admin panel for managing users, events, and permissions.
+- Admin panel for managing users, events, and permissions.
 
 
 
@@ -145,7 +159,7 @@ npm run dev
         The timestamp indicating when the event was created.
 
     isDeleted (Boolean)
-        Indicates whether the event is deleted.  
+        Indicates whether the event is deleted.
 
 
 ## Contact List Document Structure
