@@ -23,7 +23,7 @@ export default function Footer() {
         <nav>
           <h6 className="font-semibold uppercase ">Project</h6>
           <div className="footer-icons grid grid-flow-col gap-4 mt-1">
-            <a href="https://github.com/JordanDim/project-PlanPal.git">
+            <a href="https://github.com/JordanDim/PlanPal.git">
               <GithubIcon />
             </a>
             <a href="https://github.com/orgs/ReactProjectA58/projects/1">

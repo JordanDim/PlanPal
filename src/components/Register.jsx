@@ -88,14 +88,8 @@ export default function Register() {
   };
 
   return (
-    <div className="register-form flex flex-col gap-4 sm:flex-row justify-center items-center mx-auto p-4 rounded-lg mt-8 mb-8 w-auto h-auto">
-      <img
-        src="https://images.pexels.com/photos/7034449/pexels-photo-7034449.jpeg"
-        className="w-full sm:w-1/2 h-auto rounded-2xl"
-        alt="Register"
-      />
-      <div className="w-full sm:w-1/2 p-10">
-        <h1 className="text-2xl font-bold mb-4">Register</h1>
+    <div className="register-form flex flex-col gap-4 sm:flex-row justify-center items-center mx-auto p-4 rounded-lg my-4 w-auto h-auto">
+      <div className="w-full sm:w-1/2 p-6">
         <div className="alert alert-info mb-4">
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" className="stroke-current shrink-0 w-6 h-6">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
@@ -105,9 +99,17 @@ export default function Register() {
             <div className="text-xs">Use demo@planpal.com / Demo123! to <span className="font-semibold">login</span> and try the app</div>
           </div>
         </div>
-        <div className="space-y-4">
+        <img
+          src="https://images.pexels.com/photos/7034449/pexels-photo-7034449.jpeg"
+          className="w-full max-h-[60vh] object-cover rounded-2xl"
+          alt="Register"
+        />
+      </div>
+      <div className="w-full sm:w-1/2 p-6">
+        <h1 className="text-2xl font-bold mb-4">Register</h1>
+        <div className="space-y-1">
           <div className="form-control w-full">
-            <label htmlFor="userName" className="label">
+            <label htmlFor="userName" className="label py-0">
               <span className="label-text">
                 Username <span className="text-red-500">*</span>:
               </span>
@@ -127,7 +129,7 @@ export default function Register() {
             )}
           </div>
           <div className="form-control w-full">
-            <label htmlFor="email" className="label">
+            <label htmlFor="email" className="label py-0">
               <span className="label-text">
                 Email <span className="text-red-500">*</span>:
               </span>
@@ -147,7 +149,7 @@ export default function Register() {
             )}
           </div>
           <div className="form-control w-full">
-            <label htmlFor="firstName" className="label">
+            <label htmlFor="firstName" className="label py-0">
               <span className="label-text">
                 First Name <span className="text-red-500">*</span>:
               </span>
@@ -167,7 +169,7 @@ export default function Register() {
             )}
           </div>
           <div className="form-control w-full">
-            <label htmlFor="lastName" className="label">
+            <label htmlFor="lastName" className="label py-0">
               <span className="label-text">
                 Last Name <span className="text-red-500">*</span>:
               </span>
@@ -187,7 +189,7 @@ export default function Register() {
             )}
           </div>
           <div className="form-control w-full">
-            <label htmlFor="password" className="label">
+            <label htmlFor="password" className="label py-0">
               <span className="label-text">
                 Password <span className="text-red-500">*</span>:
               </span>
@@ -216,7 +218,7 @@ export default function Register() {
             </div>
           </div>
           <div className="form-control w-full">
-            <label htmlFor="confirmPassword" className="label">
+            <label htmlFor="confirmPassword" className="label py-0">
               <span className="label-text">
                 Confirm Password <span className="text-red-500">*</span>:
               </span>
@@ -249,7 +251,7 @@ export default function Register() {
             </div>
           </div>
           <div className="form-control w-full">
-            <label htmlFor="phoneNumber" className="label">
+            <label htmlFor="phoneNumber" className="label py-0">
               <span className="label-text">
                 Phone Number <span className="text-red-500">*</span>:
               </span>
@@ -269,7 +271,7 @@ export default function Register() {
             )}
           </div>
           <div className="form-control w-full">
-            <label htmlFor="address" className="label">
+            <label htmlFor="address" className="label py-0">
               <span className="label-text">
                 Address <span className="text-red-500">*</span>:
               </span>

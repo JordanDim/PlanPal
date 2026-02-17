@@ -66,9 +66,9 @@ function AppContent() {
   }
 
   return (
-    <div className="flex flex-col justify-between max-w-full">
+    <div className="flex flex-col min-h-screen max-w-full">
       <Header />
-      <div className="container mx-auto min-h-screen min-w-min">
+      <div className="container mx-auto flex-grow min-w-min">
         <Routes>
           <Route
             path={`${BASE}`}

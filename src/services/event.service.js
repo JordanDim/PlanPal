@@ -502,6 +502,7 @@ export const getTopThreeEvents = async () => {
       }));
 
       return events
+        .filter((event) => event.isPublic)
         .sort(
           (a, b) =>
             Object.keys(b.peopleGoing || {}).length -

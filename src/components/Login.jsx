@@ -51,8 +51,8 @@ export default function Login() {
   };
 
   return (
-    <div className=" register-form flex flex-col gap-4 sm:flex-row justify-center items-center  mx-auto p-4 rounded-lg mt-8 mb-8 w-auto h-auto">
-      <div className="w-full sm:w-1/2 p-10">
+    <div className=" register-form flex flex-col gap-4 sm:flex-row justify-center items-center  mx-auto p-4 rounded-lg my-4 w-auto h-auto">
+      <div className="w-full sm:w-1/2 p-6">
         <h1 className="text-3xl font-semibold mb-4">Login</h1>
         <div className="alert alert-info mb-4">
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" className="stroke-current shrink-0 w-6 h-6">
@@ -63,7 +63,7 @@ export default function Login() {
             <div className="text-xs">Email: demo@planpal.com | Password: Demo123!</div>
           </div>
         </div>
-        <div className="space-y-2">
+        <div className="space-y-1">
           <label htmlFor="email">Email </label>
           <div>
             <input
@@ -102,7 +102,7 @@ export default function Login() {
         </div>
         {error && <div className="text-red-500 mt-2">{error}</div>}
         <button
-          className="btn btn--hoverEffect2 m-auto mt-4"
+          className="btn btn--hoverEffect2 m-auto mt-2"
           id="home-ripple"
           onClick={login}
         >
@@ -111,7 +111,7 @@ export default function Login() {
       </div>
       <img
         src="https://images.pexels.com/photos/7034438/pexels-photo-7034438.jpeg"
-        className="w-full sm:w-1/2 h-auto rounded-2xl"
+        className="w-full sm:w-1/2 max-h-[60vh] object-cover rounded-2xl"
         alt="Login"
       />
     </div>
