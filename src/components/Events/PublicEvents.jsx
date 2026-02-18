@@ -12,9 +12,7 @@ export default function PublicEvents() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const {
-    userData,
     loading: userLoading,
-    setUserData,
   } = useContext(AppContext);
   const navigate = useNavigate();
 
@@ -24,6 +22,7 @@ export default function PublicEvents() {
         const publicEvents = await getPublicEvents();
         setEvents(publicEvents);
       } catch (error) {
+        console.error("Error fetching public events:", error);
         setError("Failed to fetch public events. Please try again.");
       } finally {
         setLoading(false);

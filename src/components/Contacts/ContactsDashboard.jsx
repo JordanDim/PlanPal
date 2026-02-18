@@ -45,7 +45,7 @@ export default function ContactsDashboard() {
         .then((snapshot) => {
           if (snapshot.exists()) {
             setAllUsers(Object.values(snapshot.val()));
-            const userContactsSet = new Set(Object.keys(userData?.contacts));
+            const userContactsSet = new Set(Object.keys(userData?.contacts || {}));
             const userContactsArray = Object.values(snapshot.val()).filter(
               (user) =>
                 user.handle && userContactsSet.has(user.handle.toLowerCase())

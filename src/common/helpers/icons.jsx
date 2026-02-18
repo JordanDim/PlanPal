@@ -9,7 +9,6 @@ import {
   faMagnifyingGlass,
   faMinus,
   faMoon,
-  faPhone,
   faPlus,
   faSquareMinus,
   faSquarePlus,
@@ -19,8 +18,6 @@ import {
   faUserGroup,
   faPenToSquare,
   faCircleArrowLeft,
-  faEye,
-  faEyeSlash,
   faCheck,
   faXmark,
 } from "@fortawesome/free-solid-svg-icons";
@@ -95,7 +92,7 @@ export const GoBack = () => {
   return <FontAwesomeIcon icon={faUserGroup} size={"lg"} />;
 };
 
-// eslint-disable-next-line react/prop-types
+ 
 export const GoBackArrow = ({ onClick }) => {
   return (
     <div onClick={onClick} style={{ cursor: "pointer", fontSize: "2em" }}>
@@ -104,7 +101,7 @@ export const GoBackArrow = ({ onClick }) => {
   );
 };
 
-// eslint-disable-next-line react/prop-types
+ 
 export const Edit = ({ onClick }) => {
   return (
     <div onClick={onClick} style={{ cursor: "pointer", fontSize: "2em" }}>
@@ -113,7 +110,7 @@ export const Edit = ({ onClick }) => {
   );
 };
 
-// eslint-disable-next-line react/prop-types
+ 
 export const DeleteEvent = ({ onClick }) => {
   return (
     <div onClick={onClick} style={{ cursor: "pointer", fontSize: "2em" }}>

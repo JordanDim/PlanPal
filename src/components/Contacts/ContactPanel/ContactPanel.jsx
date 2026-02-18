@@ -35,7 +35,6 @@ export default function ContactPanel({
   const { userData } = useContext(AppContext);
   const [isOpen, setIsOpen] = useState(false);
   const [isArrowUp, setIsArrowUp] = useState(false);
-  const [currentListContacts, setCurrentListContacts] = useState([]);
   const [updatingContact, setUpdatingContact] = useState(null);
   const navigate = useNavigate();
 
@@ -125,6 +124,8 @@ export default function ContactPanel({
         }
       }
     } catch (error) {
+      console.error("Error updating contact status:", error);
+      themeChecker("Failed to update contact. Please try again.", "error");
     } finally {
       setUpdatingContact(null);
     }
@@ -136,15 +137,6 @@ export default function ContactPanel({
         (list) => list.title === currentView
       );
       if (currentContactList) {
-        const currentListContacts = currentContactList.contacts || {};
-        const mappedListContacts = Object.keys(currentListContacts)
-          .map((handle) =>
-            allContacts.find((contact) => contact.handle === handle)
-          )
-          .filter(Boolean);
-        setCurrentListContacts(mappedListContacts);
-      } else {
-        setCurrentListContacts([]);
       }
     }
   }, [currentView, contactLists, allContacts]);

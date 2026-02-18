@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import LoadingSpinner from "../components/Loading/LoadingSpinner";
 
 export default function withLoading(Component) {
-  return (props) => {
+  return function WithLoadingComponent(props) {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {

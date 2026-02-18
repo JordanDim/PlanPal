@@ -5,6 +5,11 @@ import { restrictDemoUser } from "../common/helpers/demoUserRestriction";
 
 export const addEvent = async (event) => {
   restrictDemoUser("create events");
+
+  if (!event.creator) {
+    throw new Error("Creator handle is required to create an event");
+  }
+
   const newEvent = {
     ...event,
     createdOn: Date.now(),
@@ -359,10 +364,9 @@ export const inviteUser = async (
 
     const eventTitle = eventSnapshot.val().title;
 
-    const userContacts = await getUserContacts(invitingUserHandle);
-
-    if (!userContacts.includes(userToInviteHandle)) {
-      console.error("User to invite is not in the contacts list");
+    // Check if user is already invited
+    if (eventSnapshot.val().peopleGoing && eventSnapshot.val().peopleGoing[userToInviteHandle]) {
+      console.warn("User is already invited to this event");
       return false;
     }
 

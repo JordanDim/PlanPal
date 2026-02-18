@@ -14,7 +14,6 @@ export default function PrivateEvents() {
   const {
     userData,
     loading: userLoading,
-    setUserData,
   } = useContext(AppContext);
   const navigate = useNavigate();
 
@@ -24,6 +23,7 @@ export default function PrivateEvents() {
         const privateEvents = await getPrivateEvents(userData.handle);
         setEvents(privateEvents);
       } catch (error) {
+        console.error("Error fetching private events:", error);
         setError("Failed to fetch private events. Please try again.");
       } finally {
         setLoading(false);

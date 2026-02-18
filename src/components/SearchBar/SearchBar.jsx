@@ -16,7 +16,9 @@ export default function SearchBar({ onSearch, clearSearch, currentView }) {
   };
 
   useEffect(() => {
-    setSearchQuery("");
+    if (clearSearch) {
+      setSearchQuery("");
+    }
   }, [clearSearch, currentView]);
 
   return (

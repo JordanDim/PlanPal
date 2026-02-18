@@ -8,7 +8,6 @@ import { AppContext } from "../../context/AppContext.jsx";
 import { useNavigate } from "react-router-dom";
 import { BASE } from "../../common/constants.js";
 import "./styles.css";
-import { errorChecker } from "../../common/helpers/toast.js";
 import LoadingSpinner from "../Loading/LoadingSpinner.jsx";
 import EventItem from "./EventItem.jsx";
 
@@ -20,7 +19,6 @@ export default function AllEvents() {
   const {
     userData,
     loading: userLoading,
-    setUserData,
   } = useContext(AppContext);
   const navigate = useNavigate();
   const categoriesRef = useRef(null);
@@ -34,6 +32,7 @@ export default function AllEvents() {
         const eventsData = await getAllEvents(userData.handle);
         setEvents(eventsData);
       } catch (error) {
+        console.error("Error fetching events:", error);
         setError("Failed to fetch events. Please try again.");
       } finally {
         setLoading(false);
@@ -80,6 +79,7 @@ export default function AllEvents() {
       const sortedEvents = await sortByCategory(category);
       setEvents(sortedEvents);
     } catch (error) {
+      console.error("Error sorting events by category:", error);
       setError("Failed to fetch events. Please try again.");
     } finally {
       setLoading(false);

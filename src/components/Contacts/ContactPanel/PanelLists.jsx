@@ -7,7 +7,6 @@ import {
 } from "../../../services/contacts.service";
 import { useNavigate } from "react-router-dom";
 import { AppContext } from "../../../context/AppContext";
-import { ToastContainer } from "react-toastify";
 import { themeChecker } from "../../../common/helpers/toast";
 import { BASE } from "../../../common/constants";
 
@@ -27,6 +26,8 @@ export default function PanelLists({ setCurrentView, list, allContacts }) {
       themeChecker("Contact list deleted!");
       setCurrentView("My Contacts");
     } catch (error) {
+      console.error("Error deleting contact list:", error);
+      themeChecker("Failed to delete contact list. Please try again.", "error");
     }
   };
 
@@ -52,6 +53,8 @@ export default function PanelLists({ setCurrentView, list, allContacts }) {
         `${contact.handle} ${isRemoving ? "removed from" : "added to"} ${list.title}!`
       );
     } catch (error) {
+      console.error("Error updating contact list:", error);
+      themeChecker("Failed to update contact list. Please try again.", "error");
     } finally {
       setUpdatingContact(null);
     }

@@ -1,6 +1,6 @@
 import { createContext, useState, useEffect, useCallback, useRef } from "react";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
-import { ref, get } from "firebase/database";
+import { ref, get, query, orderByChild, equalTo } from "firebase/database";
 import { db } from "../config/firebase-config";
 import PropTypes from "prop-types";
 
@@ -28,22 +28,32 @@ export const AppProvider = ({ children }) => {
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
       try {
         if (user) {
-          const username = getUsernameFromEmail(user.email);
-          if (!username) {
-            throw new Error("Invalid email format");
-          }
-
-          const userRef = ref(db, `users/${username}`);
-          const snapshot = await get(userRef);
-          const userData = snapshot.val();
+          const usersRef = ref(db, "users");
+          const userQuery = query(usersRef, orderByChild("uid"), equalTo(user.uid));
+          const snapshot = await get(userQuery);
 
           if (isMounted.current) {
             setUser(user);
-            setUserData({
-              id: user.uid,
-              username,
-              ...userData,
-            });
+
+            if (snapshot.exists()) {
+              const usersData = snapshot.val();
+              const userKey = Object.keys(usersData)[0];
+              const userData = usersData[userKey];
+
+              setUserData({
+                id: user.uid,
+                handle: userKey,
+                username: userKey,
+                ...userData,
+              });
+            } else {
+              console.warn("User not found in database");
+              setUserData({
+                id: user.uid,
+                handle: null,
+                username: getUsernameFromEmail(user.email),
+              });
+            }
           }
         } else {
           if (isMounted.current) {

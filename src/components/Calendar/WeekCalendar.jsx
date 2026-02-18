@@ -13,7 +13,6 @@ import {
   parseISO,
   differenceInMinutes,
   isBefore,
-  isSameDay,
 } from "date-fns";
 import {
   useCurrentTime,
@@ -40,8 +39,6 @@ function WeekCalendar({ events = [], onDateClick = () => {}, isInWeekView = fals
 
   const daysOfWeek = Array.from({ length: 7 }, (_, i) => add(selectedWeek, { days: i }));
 
-  const currentHour = getHours(currentTime);
-  const currentMinute = getMinutes(currentTime);
   const isCurrentWeek = format(startOfWeek(currentTime, { weekStartsOn: 1 }), "yyyy-MM-dd") === format(selectedWeek, "yyyy-MM-dd");
 
   const hours = getHoursArray(new Date());

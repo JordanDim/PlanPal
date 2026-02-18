@@ -1,10 +1,6 @@
 import {
     get,
-    set,
     ref,
-    query,
-    equalTo,
-    orderByChild,
     update,
   } from "firebase/database";
   import { db } from "../config/firebase-config";

@@ -28,8 +28,8 @@ import CategorySelect from "./form/CategorySelect.jsx";
 export default function UpdateEvent() {
   const { eventId } = useParams();
   const [event, setEvent] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const [, setLoading] = useState(true);
+  const [, setError] = useState(null);
   const [errors, setErrors] = useState({});
   const [contacts, setContacts] = useState([]);
   const [finalDate, setFinalDate] = useState("");
@@ -57,6 +57,7 @@ export default function UpdateEvent() {
           setIsIndefinite(eventData.isReoccurring === "indefinitely");
         }
       } catch (error) {
+        console.error("Error fetching event data:", error);
         setError("Failed to fetch event data. Please try again.");
       } finally {
         setLoading(false);

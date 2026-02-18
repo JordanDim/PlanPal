@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from "react";
-import { NavLink, useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { AppContext } from "../context/AppContext";
 import { logoutUser } from "../services/auth.service";
 import { BASE, DARK_THEME, LIGHT_THEME } from "../common/constants";

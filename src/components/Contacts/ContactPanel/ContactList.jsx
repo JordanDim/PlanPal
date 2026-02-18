@@ -10,7 +10,7 @@ export default function ContactList({
   allContacts,
 }) {
   const [renderedContacts, setRenderedContacts] = useState([]);
-  const [visibleContacts, setVisibleContacts] = useState(5);
+  const [visibleContacts] = useState(5);
   const navigate = useNavigate();
 
   useEffect(() => {

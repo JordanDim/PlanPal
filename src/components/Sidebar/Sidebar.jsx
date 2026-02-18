@@ -8,7 +8,7 @@ import showConfirmDialog from "../ConfirmDialog";
 
 export default function SideBar() {
   const navigate = useNavigate();
-  const { user, userData } = useContext(AppContext);
+  const { userData } = useContext(AppContext);
 
   const handleNavigation = (path) => {
     navigate(path);

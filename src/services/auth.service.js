@@ -11,7 +11,8 @@ export const loginUser = async (email, password) => {
       const userCredential = await signInWithEmailAndPassword(auth, email, password);
       return { user: userCredential.user };
   } catch (error) {
-      let errorMessage = 'Login failed. Please try again.';
+      console.error("Login error:", error);
+      const errorMessage = 'Login failed. Please try again.';
       return { error: errorMessage };
   }
 };

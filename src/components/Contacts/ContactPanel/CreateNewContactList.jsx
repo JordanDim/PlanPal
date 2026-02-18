@@ -18,6 +18,8 @@ export default function CreateNewContactList() {
         themeChecker("Contact list created!");
         reset();
       } catch (error) {
+        console.error("Error creating contact list:", error);
+        themeChecker("Failed to create contact list. Please try again.", "error");
       }
     }
   };

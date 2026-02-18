@@ -14,7 +14,8 @@ const WeatherComponent = () => {
                 const data = await response.json();
                 setWeatherData(data);
                 setLoading(false);
-            } catch (err) {
+            } catch (error) {
+                console.error("Error fetching weather data, using fallback location:", error);
                 const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?lat=42.6977&lon=23.3219&appid=af9ab0eda35ad9ffda94525001bd3eab&units=metric`);
                 if (response.ok) {
                     const data = await response.json();
@@ -31,7 +32,7 @@ const WeatherComponent = () => {
                         const { latitude, longitude } = position.coords;
                         fetchWeatherData(latitude, longitude);
                     },
-                    (error) => {
+                    () => {
                         // Sofia
                         fetchWeatherData(42.6977, 23.3219);
                     }

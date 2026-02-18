@@ -4,7 +4,6 @@ import { AppContext } from "../../context/AppContext.jsx";
 import { useNavigate } from "react-router-dom";
 import { GoBackArrow } from "../../common/helpers/icons.jsx";
 import { BASE } from "../../common/constants.js";
-import { themeChecker } from "../../common/helpers/toast.js";
 import LoadingSpinner from "../Loading/LoadingSpinner.jsx";
 import EventItem from "./EventItem.jsx";
 
@@ -15,7 +14,6 @@ export default function MyEvents() {
   const {
     userData,
     loading: userLoading,
-    setUserData,
   } = useContext(AppContext);
   const navigate = useNavigate();
 
@@ -24,6 +22,7 @@ export default function MyEvents() {
       const myEvents = await displayMyEvents(userHandle);
       setEvents(myEvents);
     } catch (error) {
+      console.error("Error fetching my events:", error);
       setError("Failed to fetch events. Please try again.");
     } finally {
       setLoading(false);

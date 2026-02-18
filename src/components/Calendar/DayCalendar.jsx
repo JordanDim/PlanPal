@@ -17,8 +17,6 @@ function DayCalendar({ events, selectedDate, onDateChange }) {
   const currentTime = useCurrentTime();
   const navigate = useNavigate();
 
-  const GAP_SIZE = 0.5;
-
   function previousDay() {
     const newSelectedDate = sub(selectedDate, { days: 1 });
     onDateChange(newSelectedDate);
@@ -31,8 +29,6 @@ function DayCalendar({ events, selectedDate, onDateChange }) {
 
   const hours = getHoursArray(selectedDate);
 
-  const currentHour = getHours(currentTime);
-  const currentMinute = getMinutes(currentTime);
   const isToday =
     format(selectedDate, "yyyy-MM-dd") === format(currentTime, "yyyy-MM-dd");
 
@@ -93,7 +89,7 @@ function DayCalendar({ events, selectedDate, onDateChange }) {
               </div>
             </div>
           ))}
-          {eventsWithLayout.map((event, index) => {
+          {eventsWithLayout.map((event) => {
             const eventStart = parseISO(
               `${event.startDate}T${event.startTime}`
             );

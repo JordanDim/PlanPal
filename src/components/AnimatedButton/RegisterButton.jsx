@@ -1,10 +1,7 @@
-import React, { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
 import "./AnimatedButton.css";
 import { useGSAP } from "@gsap/react";
 
 function RegisterButton({ onClick }) {
-  const navigate = useNavigate();
   useGSAP(() => {
     const rippleBtn = document.getElementById("home-ripple");
     let ripples = document.createElement("span");
